@@ -67,6 +67,7 @@
         <ul class="nav-links">
           <li><a href="#philosophy" class="nav-link">Philosophy</a></li>
           <li><a href="#portfolio" class="nav-link">Works</a></li>
+          <li><a href="#staging-studio" class="nav-link">Live Staging</a></li>
           <li><a href="#services" class="nav-link">Disciplines</a></li>
           <li><a href="#process" class="nav-link">Methodology</a></li>
           <li><a href="#estimator" class="nav-link">Vision Studio</a></li>
@@ -104,6 +105,7 @@
         <li><a href="#hero" class="drawer-link">Sanctuary</a></li>
         <li><a href="#philosophy" class="drawer-link">Philosophy</a></li>
         <li><a href="#portfolio" class="drawer-link">Selected Works</a></li>
+        <li><a href="#staging-studio" class="drawer-link">Live Staging</a></li>
         <li><a href="#services" class="drawer-link">Disciplines</a></li>
         <li><a href="#process" class="drawer-link">Methodology</a></li>
         <li><a href="#estimator" class="drawer-link">Vision Studio</a></li>
@@ -480,6 +482,309 @@
             </div>
           </article>
 
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== LIVE SPATIAL TRANSFORMATION & STAGING STUDIO ==================== -->
+    <section class="section-padding staging-studio-section" id="staging-studio" aria-label="Interactive Spatial Staging & Transformation Studio">
+      <div class="container">
+        
+        <div class="section-header-center">
+          <span class="eyebrow">Interactive Metamorphosis</span>
+          <h2 class="section-title">The Art of Spatial <em class="editorial-italic">Metamorphosis</em></h2>
+          <p class="section-subtitle">
+            Witness how RUCHÉ Studio orchestrates raw structural bare-shell architecture into serene, tactile living sanctuaries. Explore curated bespoke elements or slide to experience the real-time transformation.
+          </p>
+        </div>
+
+        <!-- Studio Control Bar -->
+        <div class="staging-toolbar">
+          <div class="staging-toolbar-left">
+            <span class="staging-room-badge">
+              <span class="pulse-dot"></span>
+              The Koregaon Park Penthouse Salon
+            </span>
+            <span class="staging-specs-summary">Pune • 5,600 sq.ft • Turnkey Architectural Fit-Out</span>
+          </div>
+
+          <div class="staging-toolbar-right">
+            <!-- Mode Switcher Tabs -->
+            <div class="staging-mode-pill-group" role="tablist" aria-label="Staging view modes">
+              <button class="staging-mode-btn active" id="btnModeHotspots" type="button" role="tab" aria-selected="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <circle cx="12" cy="12" r="3" fill="currentColor"></circle>
+                </svg>
+                <span>Curated Elements</span>
+                <span class="badge-count">7</span>
+              </button>
+              <button class="staging-mode-btn" id="btnModeCompare" type="button" role="tab" aria-selected="false">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3"></path>
+                  <path d="M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3"></path>
+                  <line x1="12" y1="2" x2="12" y2="22"></line>
+                </svg>
+                <span>Before & After Slider</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Staging Canvas Device Frame -->
+        <div class="staging-stage-wrapper">
+          <div class="staging-device-frame" id="stagingDeviceFrame">
+            
+            <!-- Tablet Top Bar -->
+            <div class="staging-frame-header">
+              <div class="frame-header-left">
+                <span class="frame-window-dots">
+                  <span></span><span></span><span></span>
+                </span>
+                <span class="frame-brand-label">RUCHÉ Studio • Spatial Stage</span>
+              </div>
+              <div class="frame-header-center">
+                <span class="frame-url-pill">ruche-studio.com/staging/koregaon-park</span>
+              </div>
+              <div class="frame-header-right">
+                <!-- Preset View Buttons (shown in compare mode) -->
+                <div class="staging-quick-presets" id="stagingQuickPresets">
+                  <button type="button" class="preset-btn" data-preset="0">Raw Shell (Before)</button>
+                  <button type="button" class="preset-btn active" data-preset="50">50:50 Split</button>
+                  <button type="button" class="preset-btn" data-preset="100">Sanctuary (After)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Viewport Container -->
+            <div class="staging-viewport" id="stagingViewport">
+              
+              <!-- LAYER 1: AFTER (Finished RUCHÉ Sanctuary) -->
+              <div class="staging-layer staging-after-layer">
+                <img src="assets/images/projects/transformation-after.jpg" 
+                     alt="RUCHÉ Studio Finished Curated Living Sanctuary" 
+                     class="staging-image" 
+                     id="stagingAfterImg"
+                     draggable="false">
+              </div>
+
+              <!-- LAYER 2: BEFORE (Raw Construction Shell, Clipped) -->
+              <div class="staging-layer staging-before-layer" id="stagingBeforeLayer">
+                <img src="assets/images/projects/transformation-before.jpg" 
+                     alt="Raw Construction Site Shell Prior to RUCHÉ Transformation" 
+                     class="staging-image" 
+                     id="stagingBeforeImg"
+                     draggable="false">
+              </div>
+
+              <!-- Draggable Divider Line & Handle -->
+              <div class="staging-slider-divider" id="stagingSliderDivider" style="left: 50%;">
+                <div class="staging-divider-line"></div>
+                <div class="staging-slider-handle" id="stagingSliderHandle" aria-label="Drag to compare before and after transformation" role="slider" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" tabindex="0">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Comparison Floating Badges -->
+              <div class="staging-state-badge badge-before" id="badgeBefore">
+                <span class="badge-icon">1</span>
+                <span>Before • Raw Site Shell</span>
+              </div>
+              <div class="staging-state-badge badge-after" id="badgeAfter">
+                <span class="badge-icon">2</span>
+                <span>After • RUCHÉ Sanctuary</span>
+              </div>
+
+              <!-- LAYER 3: INTERACTIVE HOTSPOTS LAYER (Visible in Hotspot Mode) -->
+              <div class="staging-hotspots-layer" id="stagingHotspotsLayer">
+                
+                <!-- Hotspot 1: Curved Boucle Sectional -->
+                <button type="button" 
+                        class="staging-hotspot" 
+                        data-id="sofa" 
+                        style="left: 74%; top: 76%;" 
+                        aria-label="Inspect Pierre Curved Bouclé Sectional">
+                  <span class="hotspot-pulse"></span>
+                  <span class="hotspot-pin"></span>
+                  <span class="hotspot-label">Bouclé Sectional</span>
+                </button>
+
+                <!-- Hotspot 2: Recessed Oak Shelving & Ceramics -->
+                <button type="button" 
+                        class="staging-hotspot" 
+                        data-id="shelving" 
+                        style="left: 12%; top: 42%;" 
+                        aria-label="Inspect Recessed Oak Architectural Shelving">
+                  <span class="hotspot-pulse"></span>
+                  <span class="hotspot-pin"></span>
+                  <span class="hotspot-label">Oak Shelving Niche</span>
+                </button>
+
+                <!-- Hotspot 3: Minimalist Ochre Artwork -->
+                <button type="button" 
+                        class="staging-hotspot" 
+                        data-id="art" 
+                        style="left: 35%; top: 38%;" 
+                        aria-label="Inspect Abstract Ochre & Bone Canvas">
+                  <span class="hotspot-pulse"></span>
+                  <span class="hotspot-pin"></span>
+                  <span class="hotspot-label">Textured Artwork</span>
+                </button>
+
+                <!-- Hotspot 4: Fluted Charcoal Credenza -->
+                <button type="button" 
+                        class="staging-hotspot" 
+                        data-id="credenza" 
+                        style="left: 36%; top: 68%;" 
+                        aria-label="Inspect Fluted Ebonized Oak Credenza">
+                  <span class="hotspot-pulse"></span>
+                  <span class="hotspot-pin"></span>
+                  <span class="hotspot-label">Fluted Credenza</span>
+                </button>
+
+                <!-- Hotspot 5: European White Oak Coffee Table -->
+                <button type="button" 
+                        class="staging-hotspot" 
+                        data-id="table" 
+                        style="left: 48%; top: 80%;" 
+                        aria-label="Inspect White Oak Low Plinth Table">
+                  <span class="hotspot-pulse"></span>
+                  <span class="hotspot-pin"></span>
+                  <span class="hotspot-label">Oak Plinth Table</span>
+                </button>
+
+                <!-- Hotspot 6: Tripod Belgian Linen Luminaire -->
+                <button type="button" 
+                        class="staging-hotspot" 
+                        data-id="lamp" 
+                        style="left: 93%; top: 54%;" 
+                        aria-label="Inspect Tripod Luminaire in Patinated Brass">
+                  <span class="hotspot-pulse"></span>
+                  <span class="hotspot-pin"></span>
+                  <span class="hotspot-label">Tripod Luminaire</span>
+                </button>
+
+                <!-- Hotspot 7: Steel Crittall Glazing & Garden -->
+                <button type="button" 
+                        class="staging-hotspot" 
+                        data-id="glazing" 
+                        style="left: 78%; top: 32%;" 
+                        aria-label="Inspect Steel French Crittall Glazing">
+                  <span class="hotspot-pulse"></span>
+                  <span class="hotspot-pin"></span>
+                  <span class="hotspot-label">Crittall Glazing</span>
+                </button>
+              </div>
+
+              <!-- FLOATING DETAIL CARD (Anchored or Floating popover) -->
+              <div class="staging-popover-card" id="stagingPopoverCard" role="dialog" aria-hidden="true">
+                <button type="button" class="popover-close-btn" id="popoverCloseBtn" aria-label="Close Specification Card">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+                <div class="popover-body">
+                  <div class="popover-media">
+                    <img src="assets/images/staging/thumb-sofa.jpg" alt="" id="popoverThumb" class="popover-thumb-img">
+                  </div>
+                  <div class="popover-content">
+                    <div class="popover-tag-row">
+                      <span class="popover-category-tag" id="popoverCategory">Atelier Furniture</span>
+                      <span class="popover-maker-tag" id="popoverMaker">RUCHÉ Commission</span>
+                    </div>
+                    <h4 class="popover-title" id="popoverTitle">The Pierre Curved Bouclé Sectional</h4>
+                    <div class="popover-meta-row">
+                      <span class="popover-material-pill" id="popoverMaterials">Belgian Wool Bouclé • White Oak</span>
+                      <span class="popover-lead-pill" id="popoverLeadTime">Custom Scaled</span>
+                    </div>
+                    <p class="popover-desc" id="popoverDesc">
+                      Sculpted with low-slung European proportions, anchoring acoustic warmth and tactile comfort in the central gathering volume.
+                    </p>
+                    <div class="popover-actions">
+                      <a href="#" class="btn btn-primary btn-sm" id="popoverWaBtn" target="_blank" rel="noopener noreferrer">
+                        <span>Inquire via Concierge</span>
+                      </a>
+                      <button type="button" class="btn btn-outline btn-sm" id="popoverSaveBtn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        <span id="popoverSaveText">Save to Palette</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- FLOATING BOTTOM DOCK (Reference Video UI pattern) -->
+              <div class="staging-dock-bar" id="stagingDockBar">
+                <!-- Left: Palette Collector -->
+                <button type="button" class="dock-btn dock-palette-btn" id="dockPaletteBtn" aria-label="View Collected Palette">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                  </svg>
+                  <span>Curated Palette (<span id="paletteCount">0</span>)</span>
+                </button>
+
+                <!-- Center: Interactive Prompt / Hint -->
+                <div class="dock-hint" id="dockHint">
+                  <span class="dock-hint-dot"></span>
+                  <span id="dockHintText">Click any element pin to inspect architectural materiality</span>
+                </div>
+
+                <!-- Right: Toggle Compare Button (Exactly from Ref Video) -->
+                <button type="button" class="dock-btn dock-toggle-compare" id="dockToggleCompare">
+                  <svg class="dock-toggle-icon-compare" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="18" rx="2"></rect>
+                    <line x1="12" y1="3" x2="12" y2="21"></line>
+                    <path d="M8 12h-2M18 12h-2"></path>
+                  </svg>
+                  <svg class="dock-toggle-icon-exit" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                  </svg>
+                  <span id="dockToggleText">Compare Images</span>
+                </button>
+              </div>
+
+            </div> <!-- /staging-viewport -->
+          </div> <!-- /staging-device-frame -->
+        </div> <!-- /staging-stage-wrapper -->
+
+        <!-- CURATED PALETTE DRAWER (Slides up when client clicks Palette) -->
+        <div class="palette-drawer-modal" id="paletteDrawerModal" role="dialog" aria-hidden="true" aria-label="Curated Palette Specifications">
+          <div class="palette-drawer-backdrop" id="paletteDrawerBackdrop"></div>
+          <div class="palette-drawer-content">
+            <div class="palette-drawer-header">
+              <div>
+                <h3 class="palette-drawer-title">Your Curated Architectural Palette</h3>
+                <p class="palette-drawer-subtitle">Specifications collected from the Interactive Staging Studio</p>
+              </div>
+              <button type="button" class="modal-close-btn" id="paletteDrawerClose" aria-label="Close Palette Drawer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <div class="palette-drawer-items" id="paletteDrawerItems">
+              <!-- Dynamically populated or empty state -->
+            </div>
+            <div class="palette-drawer-footer">
+              <a href="#" class="btn btn-primary" id="paletteDrawerWaBtn" target="_blank" rel="noopener noreferrer">
+                Inquire Entire Curated Palette on WhatsApp
+              </a>
+            </div>
+          </div>
         </div>
 
       </div>
