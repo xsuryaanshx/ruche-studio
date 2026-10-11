@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const paletteDrawerBackdrop = document.getElementById('paletteDrawerBackdrop');
   const paletteDrawerItems = document.getElementById('paletteDrawerItems');
   const paletteDrawerWaBtn = document.getElementById('paletteDrawerWaBtn');
-  const presetButtons = document.querySelectorAll('.preset-btn');
+  const presetButtons = document.querySelectorAll('.preset-btn, .staging-state-badge');
   const hotspots = document.querySelectorAll('.staging-hotspot');
 
   let currentMode = 'hotspots'; // 'hotspots' | 'compare'
@@ -452,8 +452,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const pVal = parseInt(btn.getAttribute('data-preset'), 10);
       if (Math.abs(pVal - sliderPosition) < 6) {
         btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
       } else {
         btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
       }
     });
   };
@@ -566,11 +568,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Preset buttons
+  // Preset buttons & Interactive Badges
   presetButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (currentMode !== 'compare') {
+        setStagingMode('compare');
+      }
       const preset = parseInt(btn.getAttribute('data-preset'), 10);
-      setSliderPosition(preset, true);
+      if (!isNaN(preset)) {
+        setSliderPosition(preset, true);
+      }
     });
   });
 

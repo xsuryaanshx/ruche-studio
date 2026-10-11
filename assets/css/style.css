@@ -1933,6 +1933,7 @@ textarea.form-control {
 .staging-before-layer .staging-image {
   width: 100%;
   min-width: 100%;
+  max-width: none !important;
   height: 100%;
   object-fit: cover;
   object-position: left center;
@@ -2016,12 +2017,34 @@ textarea.form-control {
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 100px;
   color: #FFFFFF;
+  font-family: var(--font-sans);
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: pointer;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: all var(--transition-fast);
+}
+
+.staging-state-badge:hover {
+  background: rgba(24, 19, 17, 0.95);
+  border-color: rgba(212, 163, 115, 0.6);
+  transform: translateY(-1px);
+}
+
+.staging-state-badge.active {
+  background: rgba(24, 19, 17, 0.95);
+  border-color: var(--color-sand);
+  color: #FFFFFF;
+  box-shadow: 0 0 14px rgba(212, 163, 115, 0.45);
+}
+
+.staging-state-badge.active .badge-icon {
+  background: var(--color-sand);
+  color: #181311;
+  box-shadow: 0 0 8px rgba(212, 163, 115, 0.6);
 }
 
 .staging-state-badge.badge-before {

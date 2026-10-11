@@ -549,10 +549,10 @@
               </div>
               <div class="frame-header-right">
                 <!-- Preset View Buttons (shown in compare mode) -->
-                <div class="staging-quick-presets" id="stagingQuickPresets">
-                  <button type="button" class="preset-btn" data-preset="0">Raw Shell (Before)</button>
+                <div class="staging-quick-presets" id="stagingQuickPresets" role="group" aria-label="Quick transformation presets">
+                  <button type="button" class="preset-btn" data-preset="100">Raw Shell (Before)</button>
                   <button type="button" class="preset-btn active" data-preset="50">50:50 Split</button>
-                  <button type="button" class="preset-btn" data-preset="100">Sanctuary (After)</button>
+                  <button type="button" class="preset-btn" data-preset="0">Sanctuary (After)</button>
                 </div>
               </div>
             </div>
@@ -591,15 +591,15 @@
                 </div>
               </div>
 
-              <!-- Comparison Floating Badges -->
-              <div class="staging-state-badge badge-before" id="badgeBefore">
+              <!-- Comparison Floating Badges (Interactive Presets) -->
+              <button type="button" class="staging-state-badge badge-before" id="badgeBefore" data-preset="100" aria-label="View raw shell before transformation" title="Reveal Raw Shell (Before)">
                 <span class="badge-icon">1</span>
                 <span>Before • Raw Site Shell</span>
-              </div>
-              <div class="staging-state-badge badge-after" id="badgeAfter">
+              </button>
+              <button type="button" class="staging-state-badge badge-after" id="badgeAfter" data-preset="0" aria-label="View curated sanctuary after transformation" title="Reveal Sanctuary (After)">
                 <span class="badge-icon">2</span>
                 <span>After • RUCHÉ Sanctuary</span>
-              </div>
+              </button>
 
               <!-- LAYER 3: INTERACTIVE HOTSPOTS LAYER (Visible in Hotspot Mode) -->
               <div class="staging-hotspots-layer" id="stagingHotspotsLayer">
