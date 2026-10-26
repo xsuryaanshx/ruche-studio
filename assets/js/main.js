@@ -142,10 +142,130 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  // Portfolio Filter Implementation
+  // --- 3. Portfolio Project Data, Filter & Instagram Mobile Carousel ---
   const filterButtons = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
+  const projectCards = Array.from(document.querySelectorAll('.project-card'));
+  const portfolioGrid = document.querySelector('.portfolio-editorial-grid');
+  const carouselDotsWrap = document.getElementById('portfolioCarouselDots');
+  const carouselPrevBtn = document.getElementById('portfolioCarouselPrev');
+  const carouselNextBtn = document.getElementById('portfolioCarouselNext');
 
+  const getVisibleProjectCards = () => {
+    return projectCards.filter(card => card.style.display !== 'none');
+  };
+
+  const updateCarouselDotsAndBadges = () => {
+    if (!carouselDotsWrap || !portfolioGrid) return;
+    const visibleCards = getVisibleProjectCards();
+    const total = visibleCards.length;
+
+    // Update Instagram Slide Badges (e.g., 1 / 6)
+    visibleCards.forEach((card, idx) => {
+      const badge = card.querySelector('.insta-counter-badge');
+      if (badge) {
+        badge.innerHTML = `<span>${idx + 1}</span> / <span>${total}</span>`;
+      }
+    });
+
+    // Rebuild pagination dots
+    carouselDotsWrap.innerHTML = '';
+    visibleCards.forEach((card, idx) => {
+      const dot = document.createElement('button');
+      dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+      dot.setAttribute('type', 'button');
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', `Go to property ${idx + 1} of ${total}`);
+      dot.addEventListener('click', () => {
+        const targetLeft = card.offsetLeft - portfolioGrid.offsetLeft;
+        portfolioGrid.scrollTo({ left: targetLeft, behavior: 'smooth' });
+      });
+      carouselDotsWrap.appendChild(dot);
+    });
+  };
+
+  // Real-time scroll listener for snapping and dot active state
+  let scrollTicking = false;
+  const onCarouselScroll = () => {
+    if (!scrollTicking) {
+      window.requestAnimationFrame(() => {
+        const visibleCards = getVisibleProjectCards();
+        if (visibleCards.length && portfolioGrid && carouselDotsWrap) {
+          const scrollLeft = portfolioGrid.scrollLeft;
+          let closestIdx = 0;
+          let minDiff = Infinity;
+
+          visibleCards.forEach((card, idx) => {
+            const offset = card.offsetLeft - portfolioGrid.offsetLeft;
+            const diff = Math.abs(offset - scrollLeft);
+            if (diff < minDiff) {
+              minDiff = diff;
+              closestIdx = idx;
+            }
+          });
+
+          const dots = carouselDotsWrap.querySelectorAll('.carousel-dot');
+          dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === closestIdx);
+          });
+        }
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  };
+
+  if (portfolioGrid) {
+    portfolioGrid.addEventListener('scroll', onCarouselScroll, { passive: true });
+  }
+
+  // Prev / Next Navigation Arrows
+  if (carouselPrevBtn) {
+    carouselPrevBtn.addEventListener('click', () => {
+      const visibleCards = getVisibleProjectCards();
+      if (!visibleCards.length || !portfolioGrid) return;
+      const scrollLeft = portfolioGrid.scrollLeft;
+      let currentIdx = 0;
+      let minDiff = Infinity;
+
+      visibleCards.forEach((card, idx) => {
+        const offset = card.offsetLeft - portfolioGrid.offsetLeft;
+        const diff = Math.abs(offset - scrollLeft);
+        if (diff < minDiff) {
+          minDiff = diff;
+          currentIdx = idx;
+        }
+      });
+
+      const prevIdx = Math.max(0, currentIdx - 1);
+      const targetLeft = visibleCards[prevIdx].offsetLeft - portfolioGrid.offsetLeft;
+      portfolioGrid.scrollTo({ left: targetLeft, behavior: 'smooth' });
+    });
+  }
+
+  if (carouselNextBtn) {
+    carouselNextBtn.addEventListener('click', () => {
+      const visibleCards = getVisibleProjectCards();
+      if (!visibleCards.length || !portfolioGrid) return;
+      const scrollLeft = portfolioGrid.scrollLeft;
+      let currentIdx = 0;
+      let minDiff = Infinity;
+
+      visibleCards.forEach((card, idx) => {
+        const offset = card.offsetLeft - portfolioGrid.offsetLeft;
+        const diff = Math.abs(offset - scrollLeft);
+        if (diff < minDiff) {
+          minDiff = diff;
+          currentIdx = idx;
+        }
+      });
+
+      const nextIdx = Math.min(visibleCards.length - 1, currentIdx + 1);
+      const targetLeft = visibleCards[nextIdx].offsetLeft - portfolioGrid.offsetLeft;
+      portfolioGrid.scrollTo({ left: targetLeft, behavior: 'smooth' });
+    });
+  }
+
+  // Portfolio Filter Implementation
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       filterButtons.forEach(b => b.classList.remove('active'));
@@ -169,10 +289,57 @@ document.addEventListener('DOMContentLoaded', () => {
           }, 250);
         }
       });
+
+      // Rewind carousel and update dynamic dots
+      if (portfolioGrid) {
+        portfolioGrid.scrollTo({ left: 0, behavior: 'smooth' });
+      }
+      setTimeout(updateCarouselDotsAndBadges, 270);
     });
   });
 
-  // --- 4. Project Modal Handler ---
+  // Initial setup of dots
+  updateCarouselDotsAndBadges();
+
+  // --- 4. Project Modal Handler & Touch-Safe Gestures ---
+  let isDraggingCarousel = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+
+  if (portfolioGrid) {
+    portfolioGrid.addEventListener('touchstart', (e) => {
+      isDraggingCarousel = false;
+      if (e.touches && e.touches[0]) {
+        dragStartX = e.touches[0].clientX;
+        dragStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    portfolioGrid.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) {
+        const dx = Math.abs(e.touches[0].clientX - dragStartX);
+        const dy = Math.abs(e.touches[0].clientY - dragStartY);
+        if (dx > 10 || dy > 10) {
+          isDraggingCarousel = true;
+        }
+      }
+    }, { passive: true });
+
+    portfolioGrid.addEventListener('mousedown', (e) => {
+      isDraggingCarousel = false;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+    });
+
+    portfolioGrid.addEventListener('mousemove', (e) => {
+      const dx = Math.abs(e.clientX - dragStartX);
+      const dy = Math.abs(e.clientY - dragStartY);
+      if (dx > 10 || dy > 10) {
+        isDraggingCarousel = true;
+      }
+    });
+  }
+
   const projectModal = document.getElementById('projectModal');
   const modalClose = document.getElementById('modalClose');
 
@@ -216,9 +383,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === projectModal) closeModal();
   });
 
-  // Attach click listener to project cards
+  // Attach click listener to project cards (preventing false clicks on swipe)
   projectCards.forEach(card => {
     card.addEventListener('click', () => {
+      if (isDraggingCarousel) return;
       const projectId = card.getAttribute('data-id');
       if (projectId) openProjectModal(projectId);
     });

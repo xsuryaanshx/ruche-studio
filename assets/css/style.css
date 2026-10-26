@@ -902,6 +902,39 @@ button {
   letter-spacing: 0.05em;
 }
 
+/* Instagram Carousel Badge on Project Media */
+.insta-counter-badge {
+  position: absolute;
+  top: 1.15rem;
+  right: 1.15rem;
+  background: rgba(22, 16, 14, 0.76);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  pointer-events: none;
+}
+
+/* Instagram Controls (hidden on desktop, revealed on mobile) */
+.portfolio-carousel-footer {
+  display: none;
+}
+
+.portfolio-swipe-hint {
+  display: none;
+}
+
 /* --- SERVICES SECTION --- */
 .services-section {
   background: var(--color-canvas);
@@ -1621,6 +1654,186 @@ textarea.form-control {
 
   .material-grid .material-card:last-child {
     grid-column: span 2;
+  }
+
+  /* --- Portfolio Instagram Carousel for Mobile --- */
+  .portfolio-section {
+    overflow: hidden;
+  }
+
+  .portfolio-filter-nav {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 0.55rem !important;
+    padding: 0.25rem 0.5rem 0.85rem !important;
+    margin-bottom: 1.5rem !important;
+    justify-content: flex-start !important;
+    width: 100%;
+  }
+
+  .portfolio-filter-nav::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .portfolio-filter-nav .filter-btn {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    padding: 0.55rem 1.15rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  .portfolio-editorial-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth !important;
+    -webkit-overflow-scrolling: touch !important;
+    gap: 1.15rem !important;
+    padding: 0.5rem 1.25rem 1.25rem 1.25rem !important;
+    margin-left: -1.25rem !important;
+    margin-right: -1.25rem !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    cursor: grab;
+  }
+
+  .portfolio-editorial-grid:active {
+    cursor: grabbing;
+  }
+
+  .portfolio-editorial-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .portfolio-editorial-grid .project-card {
+    flex: 0 0 calc(86vw - 1rem) !important;
+    width: calc(86vw - 1rem) !important;
+    max-width: 360px !important;
+    min-width: 285px !important;
+    scroll-snap-align: center !important;
+    scroll-snap-stop: always !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: 0 10px 30px rgba(44, 28, 22, 0.08);
+  }
+
+  .portfolio-editorial-grid .project-card-featured,
+  .portfolio-editorial-grid .project-card-tall,
+  .portfolio-editorial-grid .project-card-half {
+    grid-column: auto !important;
+  }
+
+  .portfolio-editorial-grid .project-card .project-media-wrap {
+    height: 310px !important;
+  }
+
+  .portfolio-editorial-grid .project-inspect-badge {
+    opacity: 1 !important;
+    transform: scale(0.9) !important;
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .portfolio-editorial-grid .project-details {
+    padding: 1.25rem 1.15rem;
+  }
+
+  .portfolio-editorial-grid .project-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .portfolio-editorial-grid .project-location {
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .portfolio-editorial-grid .project-specs-row {
+    font-size: 0.72rem;
+    padding-top: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  /* Instagram Carousel Navigation Controls */
+  .portfolio-carousel-footer {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+  }
+
+  .carousel-arrow-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--color-canvas-card);
+    border: 1px solid var(--border-light);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-subtle);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .carousel-arrow-btn:active {
+    background: var(--color-primary);
+    color: #FFFFFF;
+    transform: scale(0.92);
+  }
+
+  .carousel-dots-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .carousel-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(90, 56, 45, 0.22);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .carousel-dot.active {
+    width: 22px;
+    border-radius: 999px;
+    background: var(--color-primary);
+  }
+
+  .portfolio-swipe-hint {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    font-size: 0.74rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-top: 0.85rem;
+    opacity: 0.8;
+  }
+
+  .portfolio-swipe-hint svg {
+    animation: hintArrowMove 1.8s ease-in-out infinite;
+  }
+
+  @keyframes hintArrowMove {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
   }
 
   .process-timeline {
